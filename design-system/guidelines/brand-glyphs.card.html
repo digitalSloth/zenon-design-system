@@ -1,0 +1,31 @@
+<!-- @dsCard group="Brand" viewport="700x170" name="Network glyphs" subtitle="Accelerator-Z · Bridge · Pillar · Sentinel — identity marks on the 24-grid" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body { padding: 22px; }
+  .row { display: flex; gap: 30px; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+  .tile { width: 60px; height: 60px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--card); display:flex; align-items:center; justify-content:center; color: var(--primary); }
+  .tile svg { width: 32px; height: 32px; }
+  .name { font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground); }
+  .name b { color: var(--foreground); font-weight: 600; display:block; font-size:12px; }
+</style></head>
+<body>
+  <div class="row" id="row"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script>
+    const { NetworkGlyph } = window.ZenonNoMDesignSystem_afdf82;
+    const labels = { az: "Accelerator-Z", bridge: "Bridge", pillar: "Pillar", sentinel: "Sentinel" };
+    const row = document.getElementById("row");
+    ["az","bridge","pillar","sentinel"].forEach((n) => {
+      const wrap = document.createElement("div"); wrap.className = "item";
+      const tile = document.createElement("div"); tile.className = "tile";
+      ReactDOM.createRoot(tile).render(React.createElement(NetworkGlyph, { name: n, size: 32 }));
+      const name = document.createElement("div"); name.className = "name";
+      name.innerHTML = "<b>" + labels[n] + "</b>" + n;
+      wrap.appendChild(tile); wrap.appendChild(name); row.appendChild(wrap);
+    });
+  </script>
+</body></html>

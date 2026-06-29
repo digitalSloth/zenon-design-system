@@ -1,0 +1,19 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Elevation" subtitle="Theme-aware; lit top edge on dark" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body { padding: 26px; background: var(--muted); }
+  .row { display: flex; gap: 26px; }
+  .item { text-align:center; }
+  .box { width: 92px; height: 70px; background: var(--card); border-radius: var(--radius-lg); }
+  .name { font-family: var(--font-mono); font-size: 11px; margin-top: 10px; color: var(--muted-foreground); }
+</style></head>
+<body>
+  <div class="row">
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-xs)"></div><div class="name">xs</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-sm)"></div><div class="name">sm</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-md)"></div><div class="name">md</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-lg)"></div><div class="name">lg</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-xl)"></div><div class="name">xl</div></div>
+  </div>
+</body></html>

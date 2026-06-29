@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="styles.css" />
+<style>
+  body { margin:0; background:#101010; color:#eee; font-family:var(--font-sans); padding:24px 40px; }
+  h1 { font-size:20px; font-weight:700; margin:0 0 4px; }
+  .sub { color:#888; font-size:12px; margin:0 0 18px; font-family:var(--font-mono); }
+  .grid { display:grid; grid-template-columns:150px repeat(5, 1fr); gap:0; max-width:900px; border:1px solid #262626; border-radius:10px; overflow:hidden; }
+  .grid > div { padding:12px 12px; border-bottom:1px solid #1d1d1d; border-right:1px solid #1d1d1d; display:flex; align-items:center; justify-content:center; }
+  .rowlabel { justify-content:flex-start !important; font-family:var(--font-mono); font-size:12px; color:#999; flex-direction:column; align-items:flex-start !important; gap:3px; }
+  .rowlabel b { color:#fff; font-size:13px; font-weight:600; }
+  .head { background:#161616; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#7a7a7a; }
+  .new { color:#00d557; }
+  svg.ic { width:40px; height:40px; }
+  .small svg.ic { width:22px; height:22px; }
+  .legend { margin-top:18px; display:flex; gap:30px; align-items:center; }
+  .legend .z { width:34px; height:54px; }
+  .note { color:#9a9a9a; font-size:13px; max-width:560px; line-height:1.6; }
+  .pair { display:flex; gap:18px; align-items:center; }
+</style></head>
+<body>
+  <h1>Network glyphs — relaunch rework</h1>
+  <p class="sub">original (normalized) vs. reworked in the ZNN angular grammar · shown @40 and @22</p>
+
+  <div class="grid">
+    <div class="head rowlabel">concept</div>
+    <div class="head">orig @40</div>
+    <div class="head">new @40</div>
+    <div class="head">orig @22</div>
+    <div class="head">new @22</div>
+    <div class="head">new in plasma</div>
+
+    <!-- rows injected -->
+    <div id="rows" style="display:contents"></div>
+  </div>
+
+  <div class="legend">
+    <svg class="z" viewBox="0 0 48 77" fill="none"><path d="M47.9838 0H0V9.43394H30.8722L0 28.627V77.0001H8.36965V52.8623L39.4685 77.0001H48V29.9282H15.7518L47.9838 9.30382V0ZM39.4685 39.2971L39.4847 64.4595L8.36965 39.3296V39.2971H39.4685Z" fill="#00d557"/></svg>
+    <p class="note">The reworked set shares the Z mark's DNA: one constant stroke weight, hard miter corners, 45° diagonals, and no curves. They read as one family and color with <code>currentColor</code>.</p>
+  </div>
+
+  <div id="ctx" style="margin-top:26px;display:flex;gap:14px;flex-wrap:wrap"></div>
+
+<script>
+const S = 'stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="butt" fill="none"';
+const SF = 'fill="currentColor"';
+
+// NEW reworked glyphs (24x24, angular monoline)
+const NEW = {
+  plasma: `<path d="M12 2.5 L17.5 10 L14.2 11.6 L16.2 16 L12 21.5 L7.8 16 L9.8 11.6 L6.5 10 Z" ${S}/><path d="M12 11.5 L14 15 L12 18 L10 15 Z" ${SF}/>`,
+  az: `<path d="M12 2 L15.5 7.5 L15.5 13 L8.5 13 L8.5 7.5 Z" ${S}/><path d="M12 7.2 L13.9 9.3 L12 11.4 L10.1 9.3 Z" ${SF}/><path d="M8.5 11 L5.2 16 L8.5 16" ${S}/><path d="M15.5 11 L18.8 16 L15.5 16" ${S}/><path d="M10.2 16 L12 21 L13.8 16" ${S}/>`,
+  bridge: `<path d="M3 18 H21" ${S}/><path d="M6 18 V4.5" ${S}/><path d="M18 18 V4.5" ${S}/><path d="M6 4.5 L12 10.5 L18 4.5" ${S}/><path d="M6 4.5 L3 8.5" ${S}/><path d="M18 4.5 L21 8.5" ${S}/><path d="M9 8.25 V18" ${S}/><path d="M15 8.25 V18" ${S}/>`,
+  pillar: `<path d="M4.5 7 L12 3.5 L19.5 7" ${S}/><path d="M5.5 7 H18.5" ${S}/><path d="M9 7 V18.5" ${S}/><path d="M12 7 V18.5" ${S}/><path d="M15 7 V18.5" ${S}/><path d="M5.5 18.5 H18.5" ${S}/><path d="M4 21 H20" ${S}/>`,
+  sentinel: `<path d="M12 3 L21 12 L12 21 L3 12 Z" ${S}/><path d="M12 8 L16 12 L12 16 L8 12 Z" ${S}/><path d="M12 11 L13 12 L12 13 L11 12 Z" ${SF}/>`,
+};
+const labels = { plasma:["Plasma","fuel · NEW"], az:["Accelerator-Z","community"], bridge:["Bridge","community"], pillar:["Pillar","original"], sentinel:["Sentinel","original"] };
+const order = ["plasma","az","bridge","pillar","sentinel"];
+
+const rows = document.getElementById("rows");
+async function loadOrig(name){
+  if(name==="plasma") return null;
+  const r = await fetch("assets/glyphs/"+name+".svg"); return await r.text();
+}
+(async () => {
+  for(const n of order){
+    const orig = await loadOrig(n);
+    const cell = (html, cls="") => `<div class="${cls}">${html||'<span style=\"color:#444;font-size:11px;font-family:monospace\">—</span>'}</div>`;
+    const origSvg = orig ? orig.replace('<svg','<svg class="ic"') : null;
+    const newSvg = `<svg class="ic" viewBox="0 0 24 24">${NEW[n]}</svg>`;
+    rows.insertAdjacentHTML("beforeend",
+      `<div class="rowlabel"><b>${labels[n][0]}</b>${labels[n][1]}</div>`+
+      cell(origSvg)+
+      cell(newSvg, "new")+
+      cell(origSvg, "small")+
+      cell(newSvg, "new small")+
+      cell(`<div style="color:var(--primary)">${newSvg}</div>`)
+    );
+  }
+})();
+
+// in-context: nav chips on a card surface
+const ctx = document.getElementById("ctx");
+order.forEach((n) => {
+  const chip = document.createElement("div");
+  chip.style.cssText = "display:flex;align-items:center;gap:10px;padding:10px 16px;background:#1a1a1a;border:1px solid #262626;border-radius:8px;font-size:14px;color:#ddd;font-family:var(--font-sans)";
+  chip.innerHTML = `<span style="color:var(--primary);display:flex"><svg width="18" height="18" viewBox="0 0 24 24">${NEW[n]}</svg></span>${labels[n][0]}`;
+  ctx.appendChild(chip);
+});
+</script>
+</body></html>

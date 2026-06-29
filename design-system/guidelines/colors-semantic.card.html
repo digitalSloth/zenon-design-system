@@ -1,0 +1,20 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Semantic — actions & surfaces" subtitle="Build with these, never raw hex" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body { padding: 20px; }
+  .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .sw { border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; }
+  .chip { height: 56px; display:flex; align-items:center; justify-content:center; font-family:var(--font-sans); font-weight:600; font-size:13px; }
+  .meta { padding: 7px 10px; }
+  .name { font-family: var(--font-mono); font-size: 11px; font-weight: 600; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--primary);color:var(--primary-foreground)">Aa</div><div class="meta"><div class="name">primary</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--secondary);color:var(--secondary-foreground)">Aa</div><div class="meta"><div class="name">secondary</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--accent);color:var(--accent-foreground)">Aa</div><div class="meta"><div class="name">accent</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--muted);color:var(--muted-foreground)">Aa</div><div class="meta"><div class="name">muted</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--card);color:var(--card-foreground)">Aa</div><div class="meta"><div class="name">card</div></div></div>
+  </div>
+</body></html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zenon brand kit — standalone proof</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --zenon-green:#00d557; --zenon-blue:#0061eb; --zenon-pink:#f91690; --zenon-black:#151515;
+  --plasma: linear-gradient(180deg, hsl(120 86% 63%) 0%, hsl(145 100% 38%) 100%);
+  --background:hsl(0 0% 100%); --foreground:hsl(0 0% 14.5%);
+  --card:hsl(0 0% 100%); --card-foreground:hsl(0 0% 14.5%);
+  --primary:hsl(145 100% 42%); --primary-foreground:hsl(0 0% 8%);
+  --muted:hsl(0 0% 96%); --muted-foreground:hsl(0 0% 45%);
+  --border:hsl(0 0% 90%); --ring:hsl(145 100% 42%);
+  --font-sans:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SF Mono","Menlo",monospace;
+  --ledger-tracking:0.06em;
+  --radius:0.375rem; --radius-xl:0.625rem;
+  --shadow-sm:0 1px 3px 0 hsl(0 0% 0% / .08),0 1px 2px -1px hsl(0 0% 0% / .06);
+}
+.dark {
+  --background:hsl(0 0% 8%); --foreground:hsl(0 0% 98%);
+  --card:hsl(0 0% 10%); --card-foreground:hsl(0 0% 98%);
+  --primary:hsl(145 100% 42%); --primary-foreground:hsl(0 0% 8%);
+  --muted:hsl(0 0% 15%); --muted-foreground:hsl(0 0% 65%);
+  --border:hsl(0 0% 20%);
+  --shadow-sm:0 2px 6px -1px hsl(0 0% 0% / .55),inset 0 1px 0 0 hsl(0 0% 100% / .04);
+}
+*,*::before,*::after { box-sizing:border-box; }
+body { margin:0; background:var(--background); color:var(--foreground);
+  font-family:var(--font-sans); -webkit-font-smoothing:antialiased; }
+a,button { transition: color,background-color,filter 150ms cubic-bezier(.4,0,.2,1); }
+.bg-plasma { background-image: var(--plasma); }
+.text-ledger { font-family:var(--font-mono); font-size:0.6875rem; line-height:1rem; font-weight:500;
+  text-transform:uppercase; letter-spacing:var(--ledger-tracking); }
+.tabular-nums { font-variant-numeric: tabular-nums; }
+.font-mono { font-family: var(--font-mono); }
+
+/* layout for this demo only */
+.wrap { max-width:980px; margin:0 auto; padding:80px 32px 64px; }
+.halo { position:relative; }
+.halo::before { content:""; position:absolute; left:50%; top:-40px; width:520px; height:420px;
+  transform:translateX(-50%);
+  background:radial-gradient(closest-side, hsl(145 100% 38% / .22), transparent 70%);
+  filter:blur(20px); pointer-events:none; z-index:0; }
+.halo > * { position:relative; z-index:1; }
+h1 { font-size:clamp(40px,7vw,72px); font-weight:800; line-height:1.04; letter-spacing:-.02em; margin:.5rem 0 1.25rem; }
+.lead { font-size:1.25rem; line-height:1.6; color:var(--muted-foreground); max-width:46ch; margin:0 0 2rem; }
+.cta-row { display:flex; gap:12px; flex-wrap:wrap; }
+.btn { display:inline-flex; align-items:center; padding:12px 22px; border-radius:6px; font-weight:600;
+  text-decoration:none; font-size:15px; border:1px solid transparent; }
+.btn-plasma { color:var(--primary-foreground); }
+.btn-plasma:hover { filter:brightness(1.1); }
+.btn-ghost { color:var(--foreground); border-color:var(--border); }
+.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:72px; }
+.stat { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:24px;
+  box-shadow:var(--shadow-sm); }
+.stat .v { font-size:2.5rem; font-weight:700; line-height:1; }
+.stat .c { margin-top:10px; color:var(--muted-foreground); }
+.mark { width:44px; height:44px; border-radius:8px; display:grid; place-items:center;
+  color:#fff; font-weight:800; font-family:var(--font-mono); font-size:22px; }
+</style>
+</head>
+<body>
+  <div class="wrap halo">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+      <div class="mark bg-plasma">Z</div>
+      <span class="text-ledger" style="color:var(--muted-foreground)">Network of Momentum</span>
+    </div>
+    <h1>Feeless,<br>by design.</h1>
+    <p class="lead">A self-evolving, dual-ledger network built to shape digital
+      economies of scale — powered by a worldwide community of innovators.</p>
+    <div class="cta-row">
+      <a class="btn btn-plasma bg-plasma" href="#">Start building</a>
+      <a class="btn btn-ghost" href="#">Read the docs</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="v font-mono tabular-nums">0</div>
+        <div class="c text-ledger">Transaction fee</div>
+      </div>
+      <div class="stat">
+        <div class="v font-mono tabular-nums">2</div>
+        <div class="c text-ledger">Coins · ZNN / QSR</div>
+      </div>
+      <div class="stat">
+        <div class="v font-mono tabular-nums">1.2<span style="opacity:.4">8</span>s</div>
+        <div class="c text-ledger">Momentum interval</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,353 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/blockchain/**",
+              "components/core/**",
+              "ui_kits/explorer/**",
+              "ui_kits/wallet/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:JetBrains Mono|Space Grotesk))/i]",
+        "message": "Font not provided by the design system. Available: JetBrains Mono, Space Grotesk."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Address'] > JSXAttribute > JSXIdentifier[name!=/^(?:address|start|end|truncate|copy|href|className|key|ref|className|style|children)$/]",
+        "message": "<Address> doesn't accept that prop. Declared props: address, start, end, truncate, copy, href, className."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Amount'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|decimals|symbol|fiat|compact|locale|dimTrailingZeros|className|key|ref|className|style|children)$/]",
+        "message": "<Amount> doesn't accept that prop. Declared props: value, decimals, symbol, fiat, compact, locale, dimTrailingZeros, className."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|className|children|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: variant, className, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:default|secondary|destructive|outline|success|warning|pending|highlight)$/]",
+        "message": "<Badge> variant must be one of 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'pending' | 'highlight'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|href|className|children|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, href, className, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:default|destructive|outline|secondary|ghost|link)$/]",
+        "message": "<Button> variant must be one of 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:default|xs|sm|lg|icon|icon-sm|icon-lg)$/]",
+        "message": "<Button> size must be one of 'default' | 'xs' | 'sm' | 'lg' | 'icon' | 'icon-sm' | 'icon-lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:className|children|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: className, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:numeric|className|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: numeric, className."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NetworkGlyph'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|title|className|key|ref|className|style|children)$/]",
+        "message": "<NetworkGlyph> doesn't accept that prop. Declared props: name, size, title, className."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Switch'] > JSXAttribute > JSXIdentifier[name!=/^(?:checked|onCheckedChange|className|key|ref|className|style|children)$/]",
+        "message": "<Switch> doesn't accept that prop. Declared props: checked, onCheckedChange, className."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TabItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|key|ref|className|style|children)$/]",
+        "message": "<TabItem> doesn't accept that prop. Declared props: value, label."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TokenIcon'] > JSXAttribute > JSXIdentifier[name!=/^(?:symbol|src|size|className|key|ref|className|style|children)$/]",
+        "message": "<TokenIcon> doesn't accept that prop. Declared props: symbol, src, size, className."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TxDirection'] > JSXAttribute > JSXIdentifier[name!=/^(?:direction|label|className|key|ref|className|style|children)$/]",
+        "message": "<TxDirection> doesn't accept that prop. Declared props: direction, label, className."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TxDirection'] > JSXAttribute[name.name='direction'] > Literal[value!=/^(?:in|out)$/]",
+        "message": "<TxDirection> direction must be one of 'in' | 'out'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TxStatus'] > JSXAttribute > JSXIdentifier[name!=/^(?:status|label|className|key|ref|className|style|children)$/]",
+        "message": "<TxStatus> doesn't accept that prop. Declared props: status, label, className."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TxStatus'] > JSXAttribute[name.name='status'] > Literal[value!=/^(?:pending|confirming|success|failed)$/]",
+        "message": "<TxStatus> status must be one of 'pending' | 'confirming' | 'success' | 'failed'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Address": {
+        "replaces": []
+      },
+      "Amount": {
+        "replaces": []
+      },
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": []
+      },
+      "NetworkGlyph": {
+        "replaces": []
+      },
+      "Switch": {
+        "replaces": []
+      },
+      "TabItem": {
+        "replaces": []
+      },
+      "TokenIcon": {
+        "replaces": []
+      },
+      "TxDirection": {
+        "replaces": []
+      },
+      "TxStatus": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent",
+      "--accent-foreground",
+      "--background",
+      "--border",
+      "--card",
+      "--card-foreground",
+      "--chart-1",
+      "--chart-2",
+      "--chart-3",
+      "--chart-4",
+      "--chart-5",
+      "--destructive",
+      "--destructive-foreground",
+      "--elevation-1",
+      "--elevation-2",
+      "--elevation-3",
+      "--elevation-4",
+      "--elevation-5",
+      "--font-mono",
+      "--font-sans",
+      "--font-weight-bold",
+      "--font-weight-extrabold",
+      "--font-weight-medium",
+      "--font-weight-normal",
+      "--font-weight-semibold",
+      "--foreground",
+      "--info",
+      "--info-foreground",
+      "--input",
+      "--leading-normal",
+      "--leading-relaxed",
+      "--leading-snug",
+      "--leading-tight",
+      "--ledger-tracking",
+      "--muted",
+      "--muted-foreground",
+      "--plasma",
+      "--popover",
+      "--popover-foreground",
+      "--primary",
+      "--primary-foreground",
+      "--radius",
+      "--radius-full",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-sm",
+      "--radius-xl",
+      "--ring",
+      "--secondary",
+      "--secondary-foreground",
+      "--shadow-lg",
+      "--shadow-md",
+      "--shadow-sm",
+      "--shadow-xl",
+      "--shadow-xs",
+      "--sidebar",
+      "--sidebar-accent",
+      "--sidebar-accent-foreground",
+      "--sidebar-border",
+      "--sidebar-foreground",
+      "--space-0",
+      "--space-1",
+      "--space-10",
+      "--space-12",
+      "--space-16",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-8",
+      "--success",
+      "--success-foreground",
+      "--text-base",
+      "--text-h1",
+      "--text-h2",
+      "--text-h3",
+      "--text-h4",
+      "--text-h5",
+      "--text-h6",
+      "--text-large",
+      "--text-lead",
+      "--text-ledger",
+      "--text-sm",
+      "--text-xs",
+      "--warning",
+      "--warning-foreground",
+      "--zenon-black",
+      "--zenon-blue",
+      "--zenon-green",
+      "--zenon-pink"
+    ],
+    "tokenKinds": {
+      "--zenon-green": "color",
+      "--zenon-blue": "color",
+      "--zenon-pink": "color",
+      "--zenon-black": "color",
+      "--plasma": "color",
+      "--background": "color",
+      "--foreground": "color",
+      "--card": "color",
+      "--card-foreground": "color",
+      "--popover": "color",
+      "--popover-foreground": "color",
+      "--primary": "color",
+      "--primary-foreground": "color",
+      "--secondary": "color",
+      "--secondary-foreground": "color",
+      "--muted": "color",
+      "--muted-foreground": "color",
+      "--accent": "color",
+      "--accent-foreground": "color",
+      "--destructive": "color",
+      "--destructive-foreground": "color",
+      "--success": "color",
+      "--success-foreground": "color",
+      "--warning": "color",
+      "--warning-foreground": "color",
+      "--info": "color",
+      "--info-foreground": "color",
+      "--border": "color",
+      "--input": "color",
+      "--ring": "color",
+      "--chart-1": "color",
+      "--chart-2": "color",
+      "--chart-3": "color",
+      "--chart-4": "color",
+      "--chart-5": "color",
+      "--sidebar": "color",
+      "--sidebar-foreground": "color",
+      "--sidebar-border": "color",
+      "--sidebar-accent": "color",
+      "--sidebar-accent-foreground": "color",
+      "--font-sans": "font",
+      "--font-mono": "font",
+      "--text-h1": "font",
+      "--text-h2": "font",
+      "--text-h3": "font",
+      "--text-h4": "font",
+      "--text-h5": "font",
+      "--text-h6": "font",
+      "--text-lead": "font",
+      "--text-large": "font",
+      "--text-base": "font",
+      "--text-sm": "font",
+      "--text-xs": "font",
+      "--text-ledger": "font",
+      "--font-weight-normal": "font",
+      "--font-weight-medium": "font",
+      "--font-weight-semibold": "font",
+      "--font-weight-bold": "font",
+      "--font-weight-extrabold": "font",
+      "--leading-tight": "font",
+      "--leading-snug": "font",
+      "--leading-normal": "font",
+      "--leading-relaxed": "font",
+      "--ledger-tracking": "font",
+      "--radius": "radius",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-xl": "radius",
+      "--radius-full": "radius",
+      "--space-0": "spacing",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-8": "spacing",
+      "--space-10": "spacing",
+      "--space-12": "spacing",
+      "--space-16": "spacing",
+      "--elevation-1": "shadow",
+      "--elevation-2": "shadow",
+      "--elevation-3": "shadow",
+      "--elevation-4": "shadow",
+      "--elevation-5": "shadow",
+      "--shadow-xs": "shadow",
+      "--shadow-sm": "shadow",
+      "--shadow-md": "shadow",
+      "--shadow-lg": "shadow",
+      "--shadow-xl": "shadow"
+    },
+    "fontFamilies": [
+      "JetBrains Mono",
+      "Space Grotesk"
+    ]
+  }
+}

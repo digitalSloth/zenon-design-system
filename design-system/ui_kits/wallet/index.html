@@ -1,0 +1,86 @@
+<!-- @dsCard group="Wallet" viewport="1200x720" name="Syrius Wallet" subtitle="Dashboard, transfer & receive — dual-ledger desktop wallet" -->
+<!-- @startingPoint section="Wallet" subtitle="Syrius desktop wallet — dashboard + send flow" viewport="1200x760" -->
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<title>Syrius — Network of Momentum</title>
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--background); }
+  #root { height: 100vh; }
+  .dash-amt span:first-child { font-size: 16px; font-weight: 600; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel" src="Icons.jsx"></script>
+<script type="text/babel" src="WalletData.jsx"></script>
+<script type="text/babel" src="WalletChrome.jsx"></script>
+<script type="text/babel" src="WalletScreens.jsx"></script>
+<script type="text/babel">
+const { ZnnLogo, Button } = window.ZenonNoMDesignSystem_afdf82;
+
+const TITLES = { dashboard: "Dashboard", send: "Transfer", receive: "Receive", stake: "Staking", bridge: "Bridge", settings: "Settings" };
+
+function LockScreen({ onUnlock }) {
+  const [pw, setPw] = React.useState("");
+  return (
+    <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "radial-gradient(circle at 50% 30%, rgba(0,213,87,.10), transparent 60%), var(--background)" }}>
+      <div style={{ width: 340, display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
+        <ZnnLogo style={{ width: 44, height: 70 }} />
+        <div style={{ textAlign: "center" }}>
+          <div style={{ fontWeight: 700, fontSize: 22, letterSpacing: "-.01em" }}>Welcome back</div>
+          <div style={{ fontSize: 13.5, color: "var(--muted-foreground)", marginTop: 4 }}>Unlock your Syrius wallet</div>
+        </div>
+        <input type="password" className="nom-input" placeholder="Password" value={pw}
+          onChange={(e) => setPw(e.target.value)} onKeyDown={(e) => e.key === "Enter" && onUnlock()}
+          style={{ width: "100%", height: 40 }} />
+        <Button size="lg" style={{ width: "100%" }} onClick={onUnlock}>Unlock</Button>
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--muted-foreground)", letterSpacing: ".05em" }}>z1qqjn…sww7</div>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [locked, setLocked] = React.useState(true);
+  const [screen, setScreen] = React.useState("dashboard");
+  const [dark, setDark] = React.useState(true);
+
+  React.useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+  }, [dark]);
+
+  if (locked) return <LockScreen onUnlock={() => setLocked(false)} />;
+
+  let body;
+  if (screen === "dashboard") body = <DashboardScreen onNavigate={setScreen} />;
+  else if (screen === "send") body = <SendScreen />;
+  else if (screen === "receive") body = <ReceiveScreen />;
+  else if (screen === "stake") body = <ComingSoon title="Staking & Delegation" icon="layers" />;
+  else if (screen === "bridge") body = <ComingSoon title="Cross-chain Bridge" icon="bridge" />;
+  else body = <ComingSoon title="Settings" icon="settings" />;
+
+  return (
+    <div style={{ display: "flex", height: "100vh" }}>
+      <Sidebar active={screen} onNavigate={setScreen} />
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
+        <TopBar title={TITLES[screen]} onLock={() => setLocked(true)} dark={dark} onToggleTheme={() => setDark((d) => !d)} />
+        <main style={{ flex: 1, overflowY: "auto", padding: "28px" }}>{body}</main>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

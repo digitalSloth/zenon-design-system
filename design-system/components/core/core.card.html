@@ -1,0 +1,78 @@
+<!-- @dsCard group="Components" viewport="700x440" name="Core — Button, Badge, Input, Switch, Tabs" subtitle="Action, status & form primitives" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { padding: 24px; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .lbl { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted-foreground); margin: 0 0 8px; }
+  .grp { margin-bottom: 22px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const { Button, Badge, Input, Switch, Tabs } = window.ZenonNoMDesignSystem_afdf82;
+function Demo() {
+  const [on, setOn] = React.useState(true);
+  const [tab, setTab] = React.useState("balances");
+  const items = [{value:"balances",label:"Balances"},{value:"activity",label:"Activity"},{value:"pillars",label:"Pillars"}];
+  return (
+    <div>
+      <div className="grp">
+        <p className="lbl">Button — variants</p>
+        <div className="row">
+          <Button>Send</Button>
+          <Button variant="secondary">Receive</Button>
+          <Button variant="outline">Cancel</Button>
+          <Button variant="ghost">Settings</Button>
+          <Button variant="destructive">Remove</Button>
+          <Button variant="link">View on explorer</Button>
+        </div>
+        <div className="row">
+          <Button size="lg">Large</Button>
+          <Button size="default">Default</Button>
+          <Button size="sm">Small</Button>
+          <Button size="xs">XS</Button>
+          <Button disabled>Disabled</Button>
+        </div>
+      </div>
+      <div className="grp">
+        <p className="lbl">Badge</p>
+        <div className="row">
+          <Badge>Active</Badge>
+          <Badge variant="secondary">Secondary</Badge>
+          <Badge variant="success">Confirmed</Badge>
+          <Badge variant="warning">Low balance</Badge>
+          <Badge variant="pending">Pending</Badge>
+          <Badge variant="destructive">Failed</Badge>
+          <Badge variant="outline">Pillar</Badge>
+          <Badge variant="highlight">New</Badge>
+        </div>
+      </div>
+      <div className="grp">
+        <p className="lbl">Input &amp; Switch</p>
+        <div className="row">
+          <div style={{width:220}}><Input placeholder="Search address or hash…" /></div>
+          <div style={{width:120}}><Input numeric placeholder="0.00" /></div>
+          <Switch checked={on} onCheckedChange={setOn} aria-label="Auto-lock" />
+          <span style={{fontSize:13,color:"var(--muted-foreground)"}}>Auto-lock {on ? "on" : "off"}</span>
+        </div>
+      </div>
+      <div className="grp">
+        <p className="lbl">Tabs — underline</p>
+        <Tabs variant="underline" value={tab} onValueChange={setTab} items={items} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

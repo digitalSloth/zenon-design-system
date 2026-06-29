@@ -1,0 +1,21 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="On-chain status" subtitle="success · warning · info(pending) · destructive" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../styles.css" />
+<style>
+  body { padding: 20px; }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw { border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; }
+  .chip { height: 56px; }
+  .tint { height: 22px; }
+  .meta { padding: 7px 10px; }
+  .name { font-family: var(--font-mono); font-size: 11px; font-weight: 600; }
+  .sub { font-family: var(--font-mono); font-size: 10px; color: var(--muted-foreground); }
+</style></head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--success)"></div><div class="tint" style="background:color-mix(in oklab,var(--success) 12%,transparent)"></div><div class="meta"><div class="name">success</div><div class="sub">confirmed</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--warning)"></div><div class="tint" style="background:color-mix(in oklab,var(--warning) 14%,transparent)"></div><div class="meta"><div class="name">warning</div><div class="sub">confirming</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--info)"></div><div class="tint" style="background:color-mix(in oklab,var(--info) 12%,transparent)"></div><div class="meta"><div class="name">info</div><div class="sub">pending</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--destructive)"></div><div class="tint" style="background:color-mix(in oklab,var(--destructive) 12%,transparent)"></div><div class="meta"><div class="name">destructive</div><div class="sub">failed · crimson</div></div></div>
+  </div>
+</body></html>
